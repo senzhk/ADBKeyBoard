@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">ADBKeyBoard</string>
+	<string name="keyboard_name">ADB Keyboard</string>
+	<string name="keyboard_on">ADB Keyboard {ON}</string>
+</resources>
