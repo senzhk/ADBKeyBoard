@@ -4,7 +4,7 @@ ADBKeyBoard
 
 Android Virtual Keyboard Input via ADB
 
-ADBKeyBoard is an virtual keyboard that recieves commands from system broadcast intents, which you can send text input using adb.
+ADBKeyBoard is a virtual keyboard that recieves commands from system broadcast intents, which you can send text input using adb.
 
 There is a shell command 'input', which can help you send text input to the Android system. 
 <pre>
