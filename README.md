@@ -44,7 +44,7 @@ adb shell am broadcast -a ADB_INPUT_CODE --ei code 67
 adb shell am broadcast -a ADB_EDITOR_CODE --ei code 2
 </pre>
 
-Switch to ADBKeyBoard from adb (by robertio) :
+Switch to ADBKeyBoard from adb (by robertio/https://github.com/robertio) :
 <pre>
 adb shell ime set com.android.adbkeyboard/.AdbIME   
 </pre>
