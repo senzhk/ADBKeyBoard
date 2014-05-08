@@ -35,7 +35,7 @@ ADBKeyboard will help in these cases, especially in device automation and testin
 Usage Example:
 <pre>
 1. Sending text input
-adb shell am broadcast -a ADB_INPUT_TEXT --es msg "你好嗎! Hello!"
+adb shell am broadcast -a ADB_INPUT_TEXT --es msg '你好嗎? Hello?'
 
 2. Sending keyevent code  (67 = KEYCODE_DEL)
 adb shell am broadcast -a ADB_INPUT_CODE --ei code 67
