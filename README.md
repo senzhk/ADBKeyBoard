@@ -44,6 +44,21 @@ adb shell am broadcast -a ADB_INPUT_CODE --ei code 67
 adb shell am broadcast -a ADB_EDITOR_CODE --ei code 2
 </pre>
 
+Switch to ADBKeyBoard from adb (by robertio) :
+<pre>
+   adb shell ime set com.android.adbkeyboard/.AdbIME   
+</pre>
+
+Switch back to original virtual keyboard: (swype in my case...)
+<pre>
+adb shell ime set com.nuance.swype.dtc/com.nuance.swype.input.IME  
+</pre>
+
+Check your available virtual keyboards:
+<pre>
+adb shell ime list -a  
+</pre>
+
 KeyEvent Code Ref: http://developer.android.com/reference/android/view/KeyEvent.html
 
 Editor Action Code Ref: http://developer.android.com/reference/android/view/inputmethod/EditorInfo.html
