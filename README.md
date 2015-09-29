@@ -42,6 +42,10 @@ adb shell am broadcast -a ADB_INPUT_CODE --ei code 67
 
 3. Sending editor action (2 = IME_ACTION_GO)
 adb shell am broadcast -a ADB_EDITOR_CODE --ei code 2
+
+4. Sending unicode characters
+To send 😸 Cat
+adb shell am broadcast -a ADB_INPUT_CHARS --eia chars '128568,32,67,97,116'
 </pre>
 
 Switch to ADBKeyBoard from adb (by [robertio](https://github.com/robertio)) :
