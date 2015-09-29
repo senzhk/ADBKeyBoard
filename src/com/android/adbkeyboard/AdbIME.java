@@ -12,6 +12,7 @@ import android.view.inputmethod.InputConnection;
 public class AdbIME extends InputMethodService { 
 	
     private String IME_MESSAGE = "ADB_INPUT_TEXT";
+    private String IME_CHARS = "ADB_INPUT_CHARS";
     private String IME_KEYCODE = "ADB_INPUT_CODE";
     private String IME_EDITORCODE = "ADB_EDITOR_CODE";
     private BroadcastReceiver mReceiver = null;
@@ -25,6 +26,7 @@ public class AdbIME extends InputMethodService {
     
         if (mReceiver == null) {
         	IntentFilter filter = new IntentFilter(IME_MESSAGE);
+        	filter.addAction(IME_CHARS);
         	filter.addAction(IME_KEYCODE);
         	filter.addAction(IME_EDITORCODE);
         	mReceiver = new AdbReceiver();
@@ -49,6 +51,16 @@ public class AdbIME extends InputMethodService {
 			if (intent.getAction().equals(IME_MESSAGE)) {
 				String msg = intent.getStringExtra("msg");				
 				if (msg != null) {					
+					InputConnection ic = getCurrentInputConnection();
+					if (ic != null)
+						ic.commitText(msg, 1);
+				}
+			}
+			
+			if (intent.getAction().equals(IME_CHARS)) {
+				int[] chars = intent.getIntArrayExtra("chars");				
+				if (chars != null) {					
+					String msg = new String(chars, 0, chars.length);
 					InputConnection ic = getCurrentInputConnection();
 					if (ic != null)
 						ic.commitText(msg, 1);
