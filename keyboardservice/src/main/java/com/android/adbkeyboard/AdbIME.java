@@ -5,25 +5,22 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.inputmethodservice.InputMethodService;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputConnection;
 
-public class AdbIME extends InputMethodService { 
-	
+public class AdbIME extends InputMethodService {
     private String IME_MESSAGE = "ADB_INPUT_TEXT";
     private String IME_CHARS = "ADB_INPUT_CHARS";
     private String IME_KEYCODE = "ADB_INPUT_CODE";
     private String IME_EDITORCODE = "ADB_EDITOR_CODE";
     private BroadcastReceiver mReceiver = null;
-    
-    
+
     @Override 
     public View onCreateInputView() {
-    	
-    	View mInputView = 
-            (View) getLayoutInflater().inflate( R.layout.view, null);
-    
+    	View mInputView = getLayoutInflater().inflate(R.layout.view, null);
+
         if (mReceiver == null) {
         	IntentFilter filter = new IntentFilter(IME_MESSAGE);
         	filter.addAction(IME_CHARS);
@@ -36,7 +33,6 @@ public class AdbIME extends InputMethodService {
         return mInputView; 
     } 
     
-    
     public void onDestroy() {
     	if (mReceiver != null)
     		unregisterReceiver(mReceiver);
@@ -44,13 +40,11 @@ public class AdbIME extends InputMethodService {
     }
     
     class AdbReceiver extends BroadcastReceiver {
-
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			
 			if (intent.getAction().equals(IME_MESSAGE)) {
 				String msg = intent.getStringExtra("msg");				
-				if (msg != null) {					
+				if (msg != null) {
 					InputConnection ic = getCurrentInputConnection();
 					if (ic != null)
 						ic.commitText(msg, 1);
@@ -84,8 +78,6 @@ public class AdbIME extends InputMethodService {
 						ic.performEditorAction(code);
 				}
 			}
-			
 		}
-
     }
 }

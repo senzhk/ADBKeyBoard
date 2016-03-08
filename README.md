@@ -1,7 +1,6 @@
 ADBKeyBoard 
 ===========
 
-
 Android Virtual Keyboard Input via ADB
 
 ADBKeyBoard is a virtual keyboard that receives commands from system broadcast intents, which you can send text input using adb.
@@ -24,13 +23,22 @@ is not going to work.
 
 ADBKeyboard will help in these cases, especially in device automation and testings.
 
-<h1> How to Use</h1>
+Build and install APK
+---------------------
 
-<ul>
-<li>Enable 'ADBKeyBoard' in the Language&Input Settings.</li>
-<li>Set it as Default Keyboard OR Select it as the current input method of certain EditText view.</li>
-<li>Sending Broadcast intent via Adb or your Android Services/Apps.</li>
-</ul>
+With one device or emulator connected, use these simple steps to install the keyboard:
+
+ * Get source: `git clone https://github.com/senzhk/ADBKeyBoard.git`
+ * Go into project dir `cd ADBKeyBoard`
+ * Set Android SDK location: `export ANDROID_HOME=$HOME/Android/Sdk` or edit file `local.properties`
+ * Build and install: `./gradlew installDebug`
+
+How to Use
+----------
+
+ * Enable 'ADBKeyBoard' in the Language&Input Settings.
+ * Set it as Default Keyboard OR Select it as the current input method of certain EditText view.
+ * Sending Broadcast intent via Adb or your Android Services/Apps.
 
 Usage Example:
 <pre>
@@ -68,5 +76,3 @@ You can try the apk with my debug build: https://github.com/senzhk/ADBKeyBoard/b
 KeyEvent Code Ref: http://developer.android.com/reference/android/view/KeyEvent.html
 
 Editor Action Code Ref: http://developer.android.com/reference/android/view/inputmethod/EditorInfo.html
-
-
