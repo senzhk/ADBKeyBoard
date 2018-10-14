@@ -75,7 +75,7 @@ Check your available virtual keyboards:
 adb shell ime list -a  
 </pre>
 
-You can try the apk with my debug build: https://github.com/senzhk/ADBKeyBoard/blob/master/bin/ADBKeyBoard.apk
+You can try the apk with my debug build: https://github.com/senzhk/ADBKeyBoard/raw/master/ADBKeyboard.apk
 
 KeyEvent Code Ref: http://developer.android.com/reference/android/view/KeyEvent.html
 
