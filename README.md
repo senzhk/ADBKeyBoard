@@ -65,6 +65,11 @@ adb shell am broadcast -a ADB_EDITOR_CODE --ei code 2
 4. Sending unicode characters
 To send 😸 Cat
 adb shell am broadcast -a ADB_INPUT_CHARS --eia chars '128568,32,67,97,116'
+
+5. Send meta keys
+To send Ctrl+Space
+adb shell am broadcast -a ADB_INPUT_MCODE --eia mcode '4096,62'
+
 </pre>
 
 Switch to ADBKeyBoard from adb (by [robertio](https://github.com/robertio)) :
