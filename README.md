@@ -59,6 +59,12 @@ adb shell am broadcast -a ADB_INPUT_B64 --es msg `echo '你好嗎? Hello?' | bas
 * For Windows, please try this script (provided by ssddi456): 
 https://gist.github.com/ssddi456/889d5e8a2571a33e8fcd0ff6f1288291
 
+* Sample python script to send b64 codes (provided by sunshinewithmoonlight):
+import os
+import base64
+chars = '的广告'
+charsb64 = str(base64.b64encode(chars.encode('utf-8')))[1:]
+os.system("adb shell am broadcast -a ADB_INPUT_B64 --es msg %s" %charsb64)
 
 2. Sending keyevent code  (67 = KEYCODE_DEL)
 adb shell am broadcast -a ADB_INPUT_CODE --ei code 67
