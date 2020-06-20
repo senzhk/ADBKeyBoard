@@ -50,7 +50,7 @@ adb shell am broadcast -a ADB_INPUT_TEXT --es msg '你好嗎? Hello?'
 1.1 Sending text input (base64) if (1) is not working.
 
 * For Mac/Linux, you can use the latest base64 input type with base64 command line tool:
-adb shell am broadcast -a ADB_INPUT_B64 --es msg `echo '你好嗎? Hello?' | base64`
+adb shell am broadcast -a ADB_INPUT_B64 --es msg `echo -n '你好嗎? Hello?' | base64`
 
 * For Windows, please try this script (provided by ssddi456): 
 https://gist.github.com/ssddi456/889d5e8a2571a33e8fcd0ff6f1288291
