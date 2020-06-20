@@ -3,10 +3,6 @@ ADBKeyBoard
 
 Android Virtual Keyboard Input via ADB
 
-[<img src="https://f-droid.org/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/com.android.adbkeyboard/)
-
 ADBKeyBoard is a virtual keyboard that receives commands from system broadcast intents, which you can send text input using adb.
 
 There is a shell command 'input', which can help you send text input to the Android system. 
@@ -79,6 +75,9 @@ adb shell am broadcast -a ADB_INPUT_CHARS --eia chars '128568,32,67,97,116'
 5. Send meta keys
 To send Ctrl+Space
 adb shell am broadcast -a ADB_INPUT_MCODE --eia mcode '4096,62'
+
+6. CLEAR all text (starting from v2.0)
+adb shell am broadcast -a ADB_CLEAR_TEXT
 
 </pre>
 
