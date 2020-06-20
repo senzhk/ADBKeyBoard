@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
 public class AdbIME extends InputMethodService {
@@ -18,6 +19,7 @@ public class AdbIME extends InputMethodService {
     private String IME_META_KEYCODE = "ADB_INPUT_MCODE";
     private String IME_EDITORCODE = "ADB_EDITOR_CODE";
     private String IME_MESSAGE_B64 = "ADB_INPUT_B64";
+    private String IME_CLEAR_TEXT = "ADB_CLEAR_TEXT";
     private BroadcastReceiver mReceiver = null;
 
     @Override 
@@ -31,6 +33,7 @@ public class AdbIME extends InputMethodService {
         	filter.addAction(IME_META_KEYCODE);
         	filter.addAction(IME_EDITORCODE);
         	filter.addAction(IME_MESSAGE_B64);
+        	filter.addAction(IME_CLEAR_TEXT);
         	mReceiver = new AdbReceiver();
         	registerReceiver(mReceiver, filter);
         }
@@ -113,6 +116,17 @@ public class AdbIME extends InputMethodService {
 					InputConnection ic = getCurrentInputConnection();
 					if (ic != null)
 						ic.performEditorAction(code);
+				}
+			}
+
+			if (intent.getAction().equals(IME_CLEAR_TEXT)) {
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null) {
+					//REF: stackoverflow/33082004 author: Maxime Epain
+					CharSequence curPos = ic.getExtractedText(new ExtractedTextRequest(), 0).text;
+					CharSequence beforePos = ic.getTextBeforeCursor(curPos.length(), 0);
+					CharSequence afterPos = ic.getTextAfterCursor(curPos.length(), 0);
+					ic.deleteSurroundingText(beforePos.length(), afterPos.length());
 				}
 			}
 		}
