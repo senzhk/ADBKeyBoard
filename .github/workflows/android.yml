@@ -23,3 +23,11 @@ jobs:
       run: chmod +x gradlew
     - name: Build with Gradle
       run: ./gradlew build
+    - name: Change File name
+      run: |
+           ls
+    - uses: actions/upload-artifact@v2
+      with:
+        name: Upload File
+        path: |
+          ./Xenobyte1.12.2.jar
