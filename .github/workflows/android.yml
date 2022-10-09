@@ -16,6 +16,7 @@ jobs:
       with:
         fetch-depth: 0
         ref: master
+  
     - name: set up JDK 11
       uses: actions/setup-java@v2
       with:
@@ -23,11 +24,7 @@ jobs:
         distribution: 'adopt'
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
     - name: Build with Gradle
       run: ./gradlew build
       
-    - name: Upload All Pack
-      uses: actions/upload-artifact@v2
-      with:
-        name: ADBKeyBoard
-        path: ADBKeyboard.apk
