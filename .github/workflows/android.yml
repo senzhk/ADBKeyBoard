@@ -16,6 +16,7 @@ jobs:
       with:
         fetch-depth: 0
         ref: master
+    - run: git log  --pretty=oneline | head -n 15
     - name: set up JDK 11
       uses: actions/setup-java@v2
       with:
