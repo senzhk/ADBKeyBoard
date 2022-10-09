@@ -16,7 +16,7 @@ jobs:
       with:
         fetch-depth: 0
         ref: master
-    - run: git log  --pretty=oneline | head -n 15
+    - run: cat keyboardservice/src/main/java/com/android/adbkeyboard/AdbIME.java | grep contains
     - name: set up JDK 11
       uses: actions/setup-java@v2
       with:
