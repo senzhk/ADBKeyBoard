@@ -106,7 +106,7 @@ public class AdbIME extends InputMethodService {
 					for (i = 0; i < mcodes.length - 1; i = i + 2) {
 						if (ic != null) {
 							KeyEvent ke;
-							if (mcodes[i].contains("+")) { // Check metaState if more than one.
+							if (mcodes[i].contains("+")) { // Check metaState if more than one. Use '+' as delimiter
 								String[] arrCode = mcodes[i].split("\\+"); // Get metaState if more than one.
 								ke = new KeyEvent(
 										0,
