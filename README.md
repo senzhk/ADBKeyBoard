@@ -73,8 +73,11 @@ To send 😸 Cat
 adb shell am broadcast -a ADB_INPUT_CHARS --eia chars '128568,32,67,97,116'
 
 5. Send meta keys
-To send Ctrl+Space
-adb shell am broadcast -a ADB_INPUT_MCODE --eia mcode '4096,62'
+To send Ctrl + A as below: (4096 is META_CONTROL_ON, 8192 is META_CONTROL_LEFT_ON, 29 is KEYCODE_A)
+adb shell am broadcast -a ADB_INPUT_TEXT --es mcode '4096,29' // one metaState.
+or
+adb shell am broadcast -a ADB_INPUT_TEXT --es mcode '4096^|^8192,29' // two metaState.
+
 
 6. CLEAR all text (starting from v2.0)
 adb shell am broadcast -a ADB_CLEAR_TEXT
