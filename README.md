@@ -23,6 +23,10 @@ is not going to work.
 
 ADBKeyboard will help in these cases, especially in device automation and testings.
 
+Download APK from release page
+---------------------
+* APK download: [https://github.com/senzhk/ADBKeyBoard/releases]
+
 Build and install APK
 ---------------------
 
