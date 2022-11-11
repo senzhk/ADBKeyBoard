@@ -21,6 +21,8 @@ public class AdbIME extends InputMethodService {
 	private String IME_EDITORCODE = "ADB_EDITOR_CODE";
 	private String IME_MESSAGE_B64 = "ADB_INPUT_B64";
 	private String IME_CLEAR_TEXT = "ADB_CLEAR_TEXT";
+	private String IME_META_KEYS = 'ADB_INPUT_META_KEYS';
+
 	private BroadcastReceiver mReceiver = null;
 
 	@Override
@@ -97,7 +99,7 @@ public class AdbIME extends InputMethodService {
 				}
 			}
 
-			if (intent.getAction().equals(IME_MESSAGE)) {
+			if (intent.getAction().equals(IME_META_KEYS)) {
 				String msg = intent.getStringExtra("mcode"); // Get message.
 				String[] mcodes = msg.split(","); // Get mcodes in string.
 				if (mcodes != null) {
