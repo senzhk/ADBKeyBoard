@@ -12,6 +12,7 @@
         <!-- Declares the input method service -->
         <service android:name="AdbIME"
             android:label="@string/keyboard_name"
+            android:exported="false"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>
                 <action android:name="android.view.InputMethod" />
