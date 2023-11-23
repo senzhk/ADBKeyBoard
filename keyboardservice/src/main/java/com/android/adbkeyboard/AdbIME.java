@@ -52,11 +52,55 @@ public class AdbIME extends InputMethodService {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			if (intent.getAction().equals(IME_MESSAGE)) {
+				// normal message
 				String msg = intent.getStringExtra("msg");
 				if (msg != null) {
 					InputConnection ic = getCurrentInputConnection();
 					if (ic != null)
 						ic.commitText(msg, 1);
+				}
+				// meta codes
+				String metaCodes = intent.getStringExtra("mcode"); // Get message.
+				if (metaCodes != null) {
+					String[] mcodes = metaCodes.split(","); // Get mcodes in string.
+					if (mcodes != null) {
+						int i;
+						InputConnection ic = getCurrentInputConnection();
+						for (i = 0; i < mcodes.length - 1; i = i + 2) {
+							if (ic != null) {
+								KeyEvent ke;
+								if (mcodes[i].contains("+")) { // Check metaState if more than one. Use '+' as delimiter
+									String[] arrCode = mcodes[i].split("\\+"); // Get metaState if more than one.
+									ke = new KeyEvent(
+											0,
+											0,
+											KeyEvent.ACTION_DOWN, // Action code.
+											Integer.parseInt(mcodes[i + 1].toString()), // Key code.
+											0, // Repeat. // -1
+											Integer.parseInt(arrCode[0].toString()) | Integer.parseInt(arrCode[1].toString()), // Flag
+											0, // The device ID that generated the key event.
+											0, // Raw device scan code of the event.
+											KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE, // The flags for this key event.
+											InputDevice.SOURCE_KEYBOARD // The input source such as SOURCE_KEYBOARD.
+									);
+								} else { // Only one metaState.
+									ke = new KeyEvent(
+											0,
+											0,
+											KeyEvent.ACTION_DOWN, // Action code.
+											Integer.parseInt(mcodes[i + 1].toString()), // Key code.
+											0, // Repeat.
+											Integer.parseInt(mcodes[i].toString()), // Flag
+											0, // The device ID that generated the key event.
+											0, // Raw device scan code of the event.
+											KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE, // The flags for this key event.
+											InputDevice.SOURCE_KEYBOARD // The input source such as SOURCE_KEYBOARD.
+									);
+								}
+								ic.sendKeyEvent(ke);
+							}
+						}
+					}
 				}
 			}
 
@@ -94,49 +138,6 @@ public class AdbIME extends InputMethodService {
 					InputConnection ic = getCurrentInputConnection();
 					if (ic != null)
 						ic.sendKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, code));
-				}
-			}
-
-			if (intent.getAction().equals(IME_MESSAGE)) {
-				String msg = intent.getStringExtra("mcode"); // Get message.
-				String[] mcodes = msg.split(","); // Get mcodes in string.
-				if (mcodes != null) {
-					int i;
-					InputConnection ic = getCurrentInputConnection();
-					for (i = 0; i < mcodes.length - 1; i = i + 2) {
-						if (ic != null) {
-							KeyEvent ke;
-							if (mcodes[i].contains("+")) { // Check metaState if more than one. Use '+' as delimiter
-								String[] arrCode = mcodes[i].split("\\+"); // Get metaState if more than one.
-								ke = new KeyEvent(
-										0,
-										0,
-										KeyEvent.ACTION_DOWN, // Action code.
-										Integer.parseInt(mcodes[i+1].toString()), // Key code.
-										0, // Repeat. // -1
-										Integer.parseInt(arrCode[0].toString()) | Integer.parseInt(arrCode[1].toString()), // Flag
-										0, // The device ID that generated the key event.
-										0, // Raw device scan code of the event.
-										KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE, // The flags for this key event.
-										InputDevice.SOURCE_KEYBOARD // The input source such as SOURCE_KEYBOARD.
-								);
-							} else { // Only one metaState.
-								ke = new KeyEvent(
-										0,
-										0,
-										KeyEvent.ACTION_DOWN, // Action code.
-										Integer.parseInt(mcodes[i+1].toString()), // Key code.
-										0, // Repeat.
-										Integer.parseInt(mcodes[i].toString()), // Flag
-										0, // The device ID that generated the key event.
-										0, // Raw device scan code of the event.
-										KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE, // The flags for this key event.
-										InputDevice.SOURCE_KEYBOARD // The input source such as SOURCE_KEYBOARD.
-								);
-							}
-							ic.sendKeyEvent(ke);
-						}
-					}
 				}
 			}
 
