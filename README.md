@@ -41,6 +41,11 @@ How to Use
 ----------
 
  * Enable 'ADBKeyBoard' in the Language&Input Settings OR from adb.
+```
+adb install ADBKeyboard.apk 
+adb shell ime enable com.android.adbkeyboard/.AdbIME
+adb shell ime set com.android.adbkeyboard/.AdbIME   
+```
  * Set it as Default Keyboard OR Select it as the current input method of certain EditText view.
  * Sending Broadcast intent via Adb or your Android Services/Apps.
 
