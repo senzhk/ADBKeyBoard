@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ADBKeyBoard</string>
-	<string name="keyboard_name">ADB Keyboard</string>
-	<string name="keyboard_on">ADB Keyboard {ON}</string>
+    <string name="app_name">GBOX Keyboard</string>
+	<string name="keyboard_name">GBOX Keyboard</string>
+	<string name="keyboard_on">GBOX Keyboard {ON}</string>
 </resources>

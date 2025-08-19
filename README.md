@@ -1,3 +1,10 @@
+# 构建>
+
+> 应使用 java11 来进行构建
+
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/temurin-11.jdk/Contents/Home && ./gradlew build
+
+
 ADBKeyBoard 
 ===========
 

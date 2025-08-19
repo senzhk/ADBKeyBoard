@@ -25,3 +25,5 @@ local.properties
 # Gradle
 local.properties
 .gradle/
+
+.DS_Store
