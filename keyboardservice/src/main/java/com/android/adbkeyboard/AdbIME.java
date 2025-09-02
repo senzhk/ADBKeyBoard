@@ -12,6 +12,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 
 public class AdbIME extends InputMethodService {
 	private String IME_MESSAGE = "ADB_INPUT_TEXT";
@@ -26,6 +28,15 @@ public class AdbIME extends InputMethodService {
 	@Override
 	public View onCreateInputView() {
 		View mInputView = getLayoutInflater().inflate(R.layout.view, null);
+
+		// 设置切换输入法按钮的点击事件
+		Button switchButton = mInputView.findViewById(R.id.btn_switch_ime);
+		switchButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				switchToNextInputMethod();
+			}
+		});
 
 		if (mReceiver == null) {
 			IntentFilter filter = new IntentFilter(IME_MESSAGE);
@@ -46,6 +57,17 @@ public class AdbIME extends InputMethodService {
 		if (mReceiver != null)
 			unregisterReceiver(mReceiver);
 		super.onDestroy();
+	}
+
+	/**
+	 * 切换输入法 - 显示输入法选择器
+	 */
+	private void switchToNextInputMethod() {
+		InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		if (imm != null) {
+			// 显示输入法选择器，让用户选择要切换到的输入法
+			imm.showInputMethodPicker();
+		}
 	}
 
 	class AdbReceiver extends BroadcastReceiver {

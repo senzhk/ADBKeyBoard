@@ -1,14 +1,28 @@
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="#444"
+    android:orientation="horizontal"
+    android:padding="8dp"
     >
     <TextView        
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
     	android:layout_height="wrap_content"
+    	android:layout_weight="1"
     	android:text="@string/keyboard_on"
-    	android:layout_centerInParent="true"
+    	android:gravity="center"
     	android:textColor="#fff"
     />
-</RelativeLayout>
+    <Button
+        android:id="@+id/btn_switch_ime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/switch_ime"
+        android:textSize="12sp"
+        android:background="#666"
+        android:textColor="#fff"
+        android:padding="8dp"
+        android:layout_marginLeft="8dp"
+        />
+</LinearLayout>
