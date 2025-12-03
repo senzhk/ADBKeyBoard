@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.ExtractedTextRequest;
 import android.view.inputmethod.InputConnection;
 
@@ -21,6 +22,11 @@ public class AdbIME extends InputMethodService {
 	private String IME_EDITORCODE = "ADB_EDITOR_CODE";
 	private String IME_MESSAGE_B64 = "ADB_INPUT_B64";
 	private String IME_CLEAR_TEXT = "ADB_CLEAR_TEXT";
+	private String IME_ACTION_SEARCH = "ADB_ACTION_SEARCH";
+	private String IME_ACTION_GO = "ADB_ACTION_GO";
+	private String IME_ACTION_DONE = "ADB_ACTION_DONE";
+	private String IME_ACTION_NEXT = "ADB_ACTION_NEXT";
+	private String IME_ACTION_SEND = "ADB_ACTION_SEND";
 	private BroadcastReceiver mReceiver = null;
 
 	@Override
@@ -35,6 +41,11 @@ public class AdbIME extends InputMethodService {
 			filter.addAction(IME_EDITORCODE);
 			filter.addAction(IME_MESSAGE_B64);
 			filter.addAction(IME_CLEAR_TEXT);
+			filter.addAction(IME_ACTION_SEARCH);
+			filter.addAction(IME_ACTION_GO);
+			filter.addAction(IME_ACTION_DONE);
+			filter.addAction(IME_ACTION_NEXT);
+			filter.addAction(IME_ACTION_SEND);
 			mReceiver = new AdbReceiver();
 			registerReceiver(mReceiver, filter);
 		}
@@ -158,6 +169,42 @@ public class AdbIME extends InputMethodService {
 					CharSequence beforePos = ic.getTextBeforeCursor(curPos.length(), 0);
 					CharSequence afterPos = ic.getTextAfterCursor(curPos.length(), 0);
 					ic.deleteSurroundingText(beforePos.length(), afterPos.length());
+				}
+			}
+
+			// IME Actions - convenient shortcuts
+			if (intent.getAction().equals(IME_ACTION_SEARCH)) {
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null) {
+					ic.performEditorAction(EditorInfo.IME_ACTION_SEARCH);
+				}
+			}
+
+			if (intent.getAction().equals(IME_ACTION_GO)) {
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null) {
+					ic.performEditorAction(EditorInfo.IME_ACTION_GO);
+				}
+			}
+
+			if (intent.getAction().equals(IME_ACTION_DONE)) {
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null) {
+					ic.performEditorAction(EditorInfo.IME_ACTION_DONE);
+				}
+			}
+
+			if (intent.getAction().equals(IME_ACTION_NEXT)) {
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null) {
+					ic.performEditorAction(EditorInfo.IME_ACTION_NEXT);
+				}
+			}
+
+			if (intent.getAction().equals(IME_ACTION_SEND)) {
+				InputConnection ic = getCurrentInputConnection();
+				if (ic != null) {
+					ic.performEditorAction(EditorInfo.IME_ACTION_SEND);
 				}
 			}
 		}
