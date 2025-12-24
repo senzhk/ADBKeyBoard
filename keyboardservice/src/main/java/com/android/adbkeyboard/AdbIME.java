@@ -164,11 +164,22 @@ public class AdbIME extends InputMethodService {
 			if (intent.getAction().equals(IME_CLEAR_TEXT)) {
 				InputConnection ic = getCurrentInputConnection();
 				if (ic != null) {
-					//REF: stackoverflow/33082004 author: Maxime Epain
-					CharSequence curPos = ic.getExtractedText(new ExtractedTextRequest(), 0).text;
-					CharSequence beforePos = ic.getTextBeforeCursor(curPos.length(), 0);
-					CharSequence afterPos = ic.getTextAfterCursor(curPos.length(), 0);
-					ic.deleteSurroundingText(beforePos.length(), afterPos.length());
+					// Try to get extracted text first
+					ExtractedTextRequest req = new ExtractedTextRequest();
+					req.hintMaxChars = 100000;
+					req.hintMaxLines = 10000;
+					android.view.inputmethod.ExtractedText et = ic.getExtractedText(req, 0);
+					if (et != null && et.text != null) {
+						CharSequence beforePos = ic.getTextBeforeCursor(et.text.length(), 0);
+						CharSequence afterPos = ic.getTextAfterCursor(et.text.length(), 0);
+						if (beforePos != null && afterPos != null) {
+							ic.deleteSurroundingText(beforePos.length(), afterPos.length());
+						}
+					} else {
+						// Fallback: select all and delete
+						ic.performContextMenuAction(android.R.id.selectAll);
+						ic.commitText("", 1);
+					}
 				}
 			}
 
