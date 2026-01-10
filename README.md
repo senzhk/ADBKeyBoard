@@ -25,7 +25,8 @@ ADBKeyboard will help in these cases, especially in device automation and testin
 
 Download APK from release page
 ---------------------
-* APK download: [https://github.com/senzhk/ADBKeyBoard/blob/master/ADBKeyboard.apk]
+* [Dev] Latest APK download: [https://github.com/senzhk/ADBKeyBoard/releases/download/v2.4-dev/keyboardservice-debug.apk]
+* [Old] Release APK download: [https://github.com/senzhk/ADBKeyBoard/blob/master/ADBKeyboard.apk]
 
 Build and install APK
 ---------------------
