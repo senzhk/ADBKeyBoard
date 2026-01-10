@@ -36,4 +36,12 @@ jobs:
       with:
         name: app-debug
         path: "**/build/outputs/apk/debug/*.apk"
-  
+        
+    - name: Create Release and Upload APK
+      if: startsWith(github.ref, 'refs/tags/')
+      uses: softprops/action-gh-release@v2
+      with:
+        files: "**/build/outputs/apk/debug/*.apk"
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
