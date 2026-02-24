@@ -62,6 +62,9 @@ adb shell am broadcast -a ADB_INPUT_TEXT --es msg '你好嗎? Hello?'
 * For Mac/Linux, you can use the latest base64 input type with base64 command line tool:
 adb shell am broadcast -a ADB_INPUT_B64 --es msg `echo -n '你好嗎? Hello?' | base64`
 
+* Or try this script (provided by LemonNekoGH):
+https://gist.github.com/LemonNekoGH/f7583e0f4fa83e29dfd96d8334144650
+
 * For Windows, please try this script (provided by ssddi456): 
 https://gist.github.com/ssddi456/889d5e8a2571a33e8fcd0ff6f1288291
 
