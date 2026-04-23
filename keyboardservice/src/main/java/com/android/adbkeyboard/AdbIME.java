@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.inputmethodservice.InputMethodService;
 import android.util.Base64;
 import android.util.Log;
@@ -30,32 +31,47 @@ public class AdbIME extends InputMethodService {
 	private BroadcastReceiver mReceiver = null;
 
 	@Override
-	public View onCreateInputView() {
-		View mInputView = getLayoutInflater().inflate(R.layout.view, null);
-
-		if (mReceiver == null) {
-			IntentFilter filter = new IntentFilter(IME_MESSAGE);
-			filter.addAction(IME_CHARS);
-			filter.addAction(IME_KEYCODE);
-			filter.addAction(IME_MESSAGE); // IME_META_KEYCODE // Change IME_MESSAGE to get more values.
-			filter.addAction(IME_EDITORCODE);
-			filter.addAction(IME_MESSAGE_B64);
-			filter.addAction(IME_CLEAR_TEXT);
-			filter.addAction(IME_ACTION_SEARCH);
-			filter.addAction(IME_ACTION_GO);
-			filter.addAction(IME_ACTION_DONE);
-			filter.addAction(IME_ACTION_NEXT);
-			filter.addAction(IME_ACTION_SEND);
-			mReceiver = new AdbReceiver();
-			registerReceiver(mReceiver, filter);
-		}
-
-		return mInputView;
+	public void onCreate() {
+		super.onCreate();
+		registerAdbReceiver();
 	}
 
+	private void registerAdbReceiver() {
+		if (mReceiver != null) {
+			return;
+		}
+		IntentFilter filter = new IntentFilter(IME_MESSAGE);
+		filter.addAction(IME_CHARS);
+		filter.addAction(IME_KEYCODE);
+		filter.addAction(IME_MESSAGE); // IME_META_KEYCODE // Change IME_MESSAGE to get more values.
+		filter.addAction(IME_EDITORCODE);
+		filter.addAction(IME_MESSAGE_B64);
+		filter.addAction(IME_CLEAR_TEXT);
+		filter.addAction(IME_ACTION_SEARCH);
+		filter.addAction(IME_ACTION_GO);
+		filter.addAction(IME_ACTION_DONE);
+		filter.addAction(IME_ACTION_NEXT);
+		filter.addAction(IME_ACTION_SEND);
+		mReceiver = new AdbReceiver();
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+			// API 33+: required; shell/adb is another UID — must be exported.
+			registerReceiver(mReceiver, filter, Context.RECEIVER_EXPORTED);
+		} else {
+			registerReceiver(mReceiver, filter);
+		}
+	}
+
+	@Override
+	public View onCreateInputView() {
+		return getLayoutInflater().inflate(R.layout.view, null);
+	}
+
+	@Override
 	public void onDestroy() {
-		if (mReceiver != null)
+		if (mReceiver != null) {
 			unregisterReceiver(mReceiver);
+			mReceiver = null;
+		}
 		super.onDestroy();
 	}
 
